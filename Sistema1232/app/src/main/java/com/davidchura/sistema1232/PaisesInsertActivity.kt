@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.davidchura.sistema1232.ui.theme.Color1
@@ -153,7 +152,7 @@ class PaisesInsertActivity : ComponentActivity() {
     ) {
         val queue = Volley.newRequestQueue(this)
         val url = "https://servicios.campus.pe/paisesinsert.php"
-        val stringRequest = object : StringRequest(Request.Method.POST, url,
+        val stringRequest = object : StringRequest(Method.POST, url,
             { response ->
                 val jsonObject = JSONObject(response)
                 if (jsonObject.getBoolean("success")) {

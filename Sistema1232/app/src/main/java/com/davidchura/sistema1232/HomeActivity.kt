@@ -49,6 +49,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.davidchura.sistema1232.ui.theme.Color4
 import com.davidchura.sistema1232.ui.theme.Color5
 import com.davidchura.sistema1232.ui.theme.Color6
 
@@ -142,13 +143,15 @@ class HomeActivity : ComponentActivity() {
                                         text = stringResource(texts[currentPage].first),
                                         style = MaterialTheme.typography.bodySmall,
                                         fontSize = 28.sp,
+                                        color = Color4,
                                         modifier = Modifier.align(Alignment.CenterHorizontally)
                                     )
                                     Text(
                                         text = stringResource(texts[currentPage].second),
                                         style = MaterialTheme.typography.bodySmall.copy(
-                                            fontSize = 14.sp, // Ajustar tamaño de la fuente
-                                            textAlign = TextAlign.Center // Centrar el texto
+                                            fontSize = 14.sp,
+                                            color = Color4,
+                                            textAlign = TextAlign.Center
                                         ),
                                         modifier = Modifier
                                             .align(Alignment.CenterHorizontally)
