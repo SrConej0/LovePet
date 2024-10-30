@@ -16,61 +16,70 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sistema1232"
         tools:targetApi="tiramisu">
+
         <activity
             android:name=".PaisesInsertActivity"
             android:exported="false"
             android:label="@string/title_activity_paises_insert"
             android:theme="@style/Theme.Sistema1232" />
+
         <activity
             android:name=".DetalleActivity"
             android:exported="false"
             android:label="@string/title_activity_detalle"
             android:theme="@style/Theme.Sistema1232" />
+
         <activity
             android:name=".PaisesActivity"
             android:exported="false"
             android:label="@string/title_activity_paises"
             android:theme="@style/Theme.Sistema1232" />
+
         <activity
             android:name=".ProductsActivity"
             android:exported="false"
             android:label="@string/title_activity_products"
             android:theme="@style/Theme.Sistema1232" />
+
         <activity
             android:name=".MembersActivity"
-            android:exported="false"
-            android:label="@string/title_activity_members"
-            android:theme="@style/Theme.Sistema1232" />
-        <activity
-            android:name=".SplashActivity"
             android:exported="true"
-            android:label="@string/title_activity_splash"
-            android:theme="@style/Theme.Sistema1232">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:label="@string/title_activity_members"
+        android:theme="@style/Theme.Sistema1232">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_home"
-            android:theme="@style/Theme.Sistema1232" />
-        <activity
-            android:name=".TermsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_terms"
-            android:theme="@style/Theme.Sistema1232" />
-        <activity
-            android:name=".BeginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_begin"
-            android:theme="@style/Theme.Sistema1232" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Sistema1232" />
-    </application>
+    <activity
+        android:name=".SplashActivity"
+        android:exported="false"
+        android:label="@string/title_activity_splash"
+        android:theme="@style/Theme.Sistema1232" />
 
-</manifest>
+    <activity
+        android:name=".HomeActivity"
+        android:exported="false"
+        android:label="@string/title_activity_home"
+        android:theme="@style/Theme.Sistema1232" />
+
+    <activity
+        android:name=".TermsActivity"
+        android:exported="false"
+        android:label="@string/title_activity_terms"
+        android:theme="@style/Theme.Sistema1232" />
+
+    <activity
+        android:name=".BeginActivity"
+        android:exported="false"
+        android:label="@string/title_activity_begin"
+        android:theme="@style/Theme.Sistema1232" />
+
+    <activity
+        android:name=".MainActivity"
+        android:exported="false"
+        android:theme="@style/Theme.Sistema1232" />
+</application>
+
+    </manifest>

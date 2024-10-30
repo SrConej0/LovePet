@@ -5,12 +5,12 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -18,10 +18,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -36,8 +40,10 @@ class DetalleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val tipoId = intent.getStringExtra("tipo_id")
+
         setContent {
             val detallesState = remember { mutableStateOf<List<HashMap<String, String>>?>(null) }
+
             Scaffold(
                 topBar = {
                     TopAppBar(
@@ -58,6 +64,7 @@ class DetalleActivity : ComponentActivity() {
                     DetailScreen(detallesState.value)
                 }
             }
+
             LaunchedEffect(tipoId) {
                 tipoId?.let {
                     readService(it, { detallesState.value = it }, { Log.e("VOLLEY", it) })
@@ -73,7 +80,8 @@ class DetalleActivity : ComponentActivity() {
     ) {
         val url = "http://10.0.2.2/servicio/serviciodetalle.php?tipo_id=$tipoId"
         val queue = Volley.newRequestQueue(this)
-        val stringRequest = StringRequest(Request.Method.GET, url,
+        val stringRequest = StringRequest(
+            Request.Method.GET, url,
             { response ->
                 val detalles = JSONArray(response).run {
                     (0 until length()).map { i ->
@@ -95,68 +103,210 @@ class DetalleActivity : ComponentActivity() {
         queue.add(stringRequest)
     }
 }
-
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DetailScreen(detalles: List<HashMap<String, String>>?) {
     if (detalles == null) {
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
     } else {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            items(detalles) { detalle ->
+        val pagerState = rememberPagerState(pageCount = { detalles.size })
+
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier.fillMaxSize()
+        ) { page ->
+            val detalle = detalles[page]
+            Box(modifier = Modifier.fillMaxSize()) {
+                // Imagen de fondo con blur aumentado
+                Image(
+                    painter = rememberAsyncImagePainter(model = detalle["foto"]),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .blur(radius = 20.dp),  // Aumentado de 10dp a 20dp
+                    contentScale = ContentScale.FillBounds
+                )
+
+                // Gradiente más oscuro y suave
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.verticalGradient(
+                                colors = listOf(
+                                    Color.Black.copy(alpha = 0.6f),  // Más oscuro
+                                    Color.Black.copy(alpha = 0.8f)   // Más oscuro
+                                )
+                            )
+                        )
+                )
+
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
+                        .fillMaxSize()
                         .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Box(
+                    // ID Card con sombra más pronunciada
+                    Card(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 8.dp),
-                        contentAlignment = Alignment.TopEnd
+                            .align(Alignment.End)
+                            .padding(4.dp),  // Añadido padding para la sombra
+                        shape = RoundedCornerShape(8.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color1.copy(alpha = 0.95f)  // Más opaco
+                        ),
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 24.dp,    // Aumentado de 12dp
+                            pressedElevation = 12.dp,    // Aumentado de 6dp
+                            focusedElevation = 24.dp     // Aumentado de 12dp
+                        )
                     ) {
                         Text(
                             text = "ID: ${detalle["id"]}",
-                            style = MaterialTheme.typography.bodySmall,
+                            style = MaterialTheme.typography.bodyMedium,
                             color = Color4,
-                            modifier = Modifier
-                                .background(Color1)
-                                .padding(4.dp)
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)  // Padding aumentado
                         )
                     }
 
-                    Text(
-                        text = "Nombre: ${detalle["nombre"]}",
-                        style = MaterialTheme.typography.titleLarge,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Image(
-                        painter = rememberAsyncImagePainter(model = detalle["foto"]),
-                        contentDescription = null,
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        // Imagen principal con sombra dramática
+                        Card(
+                            modifier = Modifier
+                                .size(340.dp)
+                                .padding(12.dp),  // Aumentado de 8dp
+                            shape = RoundedCornerShape(20.dp),  // Aumentado de 16dp
+                            elevation = CardDefaults.cardElevation(
+                                defaultElevation = 32.dp,    // Aumentado de 20dp
+                                pressedElevation = 16.dp,    // Aumentado de 10dp
+                                focusedElevation = 32.dp     // Aumentado de 20dp
+                            )
+                        ) {
+                            Image(
+                                painter = rememberAsyncImagePainter(model = detalle["foto"]),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(RoundedCornerShape(20.dp)),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(12.dp))  // Aumentado de 8dp
+
+                        // Tarjeta de información con efecto glassmorphism mejorado
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp),  // Aumentado de 8dp
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color.White.copy(alpha = 0.9f)  // Más opaco
+                            ),
+                            shape = RoundedCornerShape(20.dp),  // Aumentado de 16dp
+                            elevation = CardDefaults.cardElevation(
+                                defaultElevation = 24.dp,    // Aumentado de 16dp
+                                pressedElevation = 12.dp,    // Aumentado de 8dp
+                                focusedElevation = 24.dp     // Aumentado de 16dp
+                            )
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),  // Aumentado de 16dp
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = detalle["nombre"] ?: "",
+                                    style = MaterialTheme.typography.headlineMedium,
+                                    textAlign = TextAlign.Center,
+                                    color = Color.Black
+                                )
+                                Spacer(modifier = Modifier.height(12.dp))  // Aumentado de 8dp
+                                Text(
+                                    text = detalle["descripcion"] ?: "",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    textAlign = TextAlign.Center,
+                                    color = Color.Black
+                                )
+                                Spacer(modifier = Modifier.height(12.dp))  // Aumentado de 8dp
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceEvenly
+                                ) {
+                                    // Mini-cards con sombras más pronunciadas
+                                    Card(
+                                        colors = CardDefaults.cardColors(
+                                            containerColor = Color1.copy(alpha = 0.15f)  // Ligeramente más visible
+                                        ),
+                                        elevation = CardDefaults.cardElevation(
+                                            defaultElevation = 8.dp  // Aumentado de 4dp
+                                        )
+                                    ) {
+                                        Text(
+                                            text = "Edad: ${detalle["edad"]}",
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            color = Color.Black,
+                                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)  // Padding aumentado
+                                        )
+                                    }
+
+                                    Card(
+                                        colors = CardDefaults.cardColors(
+                                            containerColor = Color1.copy(alpha = 0.15f)
+                                        ),
+                                        elevation = CardDefaults.cardElevation(
+                                            defaultElevation = 8.dp
+                                        )
+                                    ) {
+                                        Text(
+                                            text = "Tipo ID: ${detalle["tipo_id"]}",
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            color = Color.Black,
+                                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Indicador de página con sombras más pronunciadas
+                    Row(
                         modifier = Modifier
-                            .size(200.dp)
-                            .padding(8.dp)
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    // Descripción
-                    Text(text = "Descripción: ${detalle["descripcion"]}")
-                    Spacer(modifier = Modifier.height(4.dp))
-                    // Edad
-                    Text(text = "Edad: ${detalle["edad"]}")
-                    Spacer(modifier = Modifier.height(4.dp))
-                    // Tipo ID al lado de la edad
-                    Text(text = "Tipo ID: ${detalle["tipo_id"]}")
+                            .padding(top = 20.dp)  // Aumentado de 16dp
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        repeat(detalles.size) { iteration ->
+                            val color = if (pagerState.currentPage == iteration) {
+                                Color.White
+                            } else {
+                                Color.White.copy(alpha = 0.5f)
+                            }
+                            Card(
+                                modifier = Modifier
+                                    .padding(3.dp)  // Aumentado de 2dp
+                                    .size(8.dp),
+                                shape = RoundedCornerShape(4.dp),
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 8.dp  // Aumentado de 4dp
+                                ),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = color
+                                )
+                            ) {
+                                Box(modifier = Modifier.fillMaxSize())
+                            }
+                        }
+                    }
                 }
             }
         }
