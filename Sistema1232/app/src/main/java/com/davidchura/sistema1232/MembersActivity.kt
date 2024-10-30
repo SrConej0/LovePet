@@ -108,7 +108,7 @@ fun DrawMemberItem(member: HashMap<String, String>) {
             .padding(4.dp)
             .border(1.dp, Color.Gray, RoundedCornerShape(16.dp))
             .padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically // Alinea verticalmente el contenido
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(text = "Tipo: ${member["tipo"]}", style = MaterialTheme.typography.titleMedium)
@@ -122,8 +122,8 @@ fun DrawMemberItem(member: HashMap<String, String>) {
                 painter = rememberAsyncImagePainter(model = member["foto"]),
                 contentDescription = null,
                 modifier = Modifier
-                    .fillMaxSize() // La imagen llenará el espacio dentro del Box
-                    .padding(8.dp) // Ajusta este padding según sea necesario
+                    .fillMaxSize()
+                    .padding(8.dp)
             )
         }
     }

@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
@@ -41,6 +42,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -120,8 +122,11 @@ class MainActivity() : ComponentActivity(), Parcelable {
                             modifier = Modifier
                                 .size(350.dp, 55.dp)
                                 .background(Color3, shape = RoundedCornerShape(8.dp)),
+
                             shape = RoundedCornerShape(12.dp),
-                            placeholder = { Text(text = "+(51)") }
+                            placeholder = { Text(text = "+(51)" ,  color = Color4)},
+                            textStyle = TextStyle(color = Color4),
+                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number) // Add this line
                         )
 
                         if (errorMessage.isNotEmpty()) {
@@ -136,44 +141,52 @@ class MainActivity() : ComponentActivity(), Parcelable {
 
                         ElevatedButton(
                             onClick = {
-                                // Enviar datos al PHP para verificación
-                                val url = "http://10.0.2.2/servicio/ingreso.php"
-                                val requestBody = FormBody.Builder()
-                                    .add("telefono", phoneNumber)
-                                    .build()
-                                val request = Request.Builder()
-                                    .url(url)
-                                    .post(requestBody)
-                                    .build()
-                                val client = OkHttpClient()
-                                client.newCall(request).enqueue(object : Callback {
-                                    override fun onFailure(call: Call, e: IOException) {
-                                        // Manejar error de conexión
-                                        errorMessage = "Error de conexión. Inténtalo de nuevo."
+                                if (phoneNumber == "999999999") {
+                                    // Directly start the activity without API verification
+                                    val intent = Intent(this@MainActivity, BeginActivity::class.java).apply {
+                                        putExtra("telefono", phoneNumber)
                                     }
-
-                                    override fun onResponse(call: Call, response: Response) {
-                                        if (response.isSuccessful) {
-                                            val responseBody = response.body?.string()
-                                            val jsonResponse = JSONObject(responseBody)
-
-                                            if (jsonResponse.getBoolean("success")) {
-                                                val intent = Intent(
-                                                    this@MainActivity,
-                                                    BeginActivity::class.java
-                                                ).apply {
-                                                    putExtra("telefono", phoneNumber)
-                                                }
-                                                startActivity(intent)
-                                            } else {
-                                                errorMessage = jsonResponse.getString("message")
-                                            }
-                                        } else {
-                                            errorMessage =
-                                                "Error en la verificación. Inténtalo de nuevo."
+                                    startActivity(intent)
+                                } else {
+                                    // Enviar datos al PHP para verificación
+                                    val url = "http://10.0.2.2/servicio/ingreso.php"
+                                    val requestBody = FormBody.Builder()
+                                        .add("telefono", phoneNumber)
+                                        .build()
+                                    val request = Request.Builder()
+                                        .url(url)
+                                        .post(requestBody)
+                                        .build()
+                                    val client = OkHttpClient()
+                                    client.newCall(request).enqueue(object : Callback {
+                                        override fun onFailure(call: Call, e: IOException) {
+                                            // Manejar error de conexión
+                                            errorMessage = "Error de conexión. Inténtalo de nuevo."
                                         }
-                                    }
-                                })
+
+                                        override fun onResponse(call: Call, response: Response) {
+                                            if (response.isSuccessful) {
+                                                val responseBody = response.body?.string()
+                                                val jsonResponse = JSONObject(responseBody)
+
+                                                if (jsonResponse.getBoolean("success")) {
+                                                    val intent = Intent(
+                                                        this@MainActivity,
+                                                        BeginActivity::class.java
+                                                    ).apply {
+                                                        putExtra("telefono", phoneNumber)
+                                                    }
+                                                    startActivity(intent)
+                                                } else {
+                                                    errorMessage = jsonResponse.getString("message")
+                                                }
+                                            } else {
+                                                errorMessage =
+                                                    "Error en la verificación. Inténtalo de nuevo."
+                                            }
+                                        }
+                                    })
+                                }
                             },
                             modifier = Modifier.size(350.dp, 55.dp),
                             shape = RoundedCornerShape(12.dp),
