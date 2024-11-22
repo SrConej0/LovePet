@@ -43,8 +43,8 @@ import com.davidchura.sistema1232.ui.theme.Sistema1232Theme
 
 class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
         setContent {
             Sistema1232Theme {
                 var currentPage by remember { mutableIntStateOf(0) }

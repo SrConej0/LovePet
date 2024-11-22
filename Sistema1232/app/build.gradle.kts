@@ -77,5 +77,9 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.volley)
+    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
+    implementation(composeBom)
+    debugImplementation(libs.androidx.compose.ui.ui.tooling)
+    implementation(libs.androidx.compose.ui.ui.tooling.preview)
 
 }

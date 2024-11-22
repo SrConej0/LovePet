@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -66,7 +65,7 @@ class DetalleActivity : ComponentActivity() {
             }
 
             LaunchedEffect(tipoId) {
-                tipoId?.let {
+                tipoId?.let { it ->
                     readService(it, { detallesState.value = it }, { Log.e("VOLLEY", it) })
                 }
             }
@@ -103,7 +102,6 @@ class DetalleActivity : ComponentActivity() {
         queue.add(stringRequest)
     }
 }
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DetailScreen(detalles: List<HashMap<String, String>>?) {
     if (detalles == null) {
@@ -119,25 +117,25 @@ fun DetailScreen(detalles: List<HashMap<String, String>>?) {
         ) { page ->
             val detalle = detalles[page]
             Box(modifier = Modifier.fillMaxSize()) {
-                // Imagen de fondo con blur aumentado
+
                 Image(
                     painter = rememberAsyncImagePainter(model = detalle["foto"]),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
-                        .blur(radius = 20.dp),  // Aumentado de 10dp a 20dp
+                        .blur(radius = 20.dp),
                     contentScale = ContentScale.FillBounds
                 )
 
-                // Gradiente más oscuro y suave
+
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(
                             Brush.verticalGradient(
                                 colors = listOf(
-                                    Color.Black.copy(alpha = 0.6f),  // Más oscuro
-                                    Color.Black.copy(alpha = 0.8f)   // Más oscuro
+                                    Color.Black.copy(alpha = 0.6f),
+                                    Color.Black.copy(alpha = 0.8f)
                                 )
                             )
                         )
@@ -150,26 +148,26 @@ fun DetailScreen(detalles: List<HashMap<String, String>>?) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    // ID Card con sombra más pronunciada
+
                     Card(
                         modifier = Modifier
                             .align(Alignment.End)
-                            .padding(4.dp),  // Añadido padding para la sombra
+                            .padding(4.dp),
                         shape = RoundedCornerShape(8.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = Color1.copy(alpha = 0.95f)  // Más opaco
+                            containerColor = Color1.copy(alpha = 0.95f)
                         ),
                         elevation = CardDefaults.cardElevation(
-                            defaultElevation = 24.dp,    // Aumentado de 12dp
-                            pressedElevation = 12.dp,    // Aumentado de 6dp
-                            focusedElevation = 24.dp     // Aumentado de 12dp
+                            defaultElevation = 24.dp,
+                            pressedElevation = 12.dp,
+                            focusedElevation = 24.dp
                         )
                     ) {
                         Text(
                             text = "ID: ${detalle["id"]}",
                             style = MaterialTheme.typography.bodyMedium,
                             color = Color4,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)  // Padding aumentado
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                         )
                     }
 
@@ -178,16 +176,16 @@ fun DetailScreen(detalles: List<HashMap<String, String>>?) {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        // Imagen principal con sombra dramática
+
                         Card(
                             modifier = Modifier
                                 .size(340.dp)
-                                .padding(12.dp),  // Aumentado de 8dp
-                            shape = RoundedCornerShape(20.dp),  // Aumentado de 16dp
+                                .padding(12.dp),
+                            shape = RoundedCornerShape(20.dp),
                             elevation = CardDefaults.cardElevation(
-                                defaultElevation = 32.dp,    // Aumentado de 20dp
-                                pressedElevation = 16.dp,    // Aumentado de 10dp
-                                focusedElevation = 32.dp     // Aumentado de 20dp
+                                defaultElevation = 32.dp,
+                                pressedElevation = 16.dp,
+                                focusedElevation = 32.dp
                             )
                         ) {
                             Image(
@@ -200,21 +198,21 @@ fun DetailScreen(detalles: List<HashMap<String, String>>?) {
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(12.dp))  // Aumentado de 8dp
+                        Spacer(modifier = Modifier.height(12.dp))
 
-                        // Tarjeta de información con efecto glassmorphism mejorado
+
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 8.dp),  // Aumentado de 8dp
+                                .padding(horizontal = 8.dp),
                             colors = CardDefaults.cardColors(
-                                containerColor = Color.White.copy(alpha = 0.9f)  // Más opaco
+                                containerColor = Color.White.copy(alpha = 0.9f)
                             ),
-                            shape = RoundedCornerShape(20.dp),  // Aumentado de 16dp
+                            shape = RoundedCornerShape(20.dp),
                             elevation = CardDefaults.cardElevation(
-                                defaultElevation = 24.dp,    // Aumentado de 16dp
-                                pressedElevation = 12.dp,    // Aumentado de 8dp
-                                focusedElevation = 24.dp     // Aumentado de 16dp
+                                defaultElevation = 24.dp,
+                                pressedElevation = 12.dp,
+                                focusedElevation = 24.dp
                             )
                         ) {
                             Column(
@@ -236,25 +234,25 @@ fun DetailScreen(detalles: List<HashMap<String, String>>?) {
                                     textAlign = TextAlign.Center,
                                     color = Color.Black
                                 )
-                                Spacer(modifier = Modifier.height(12.dp))  // Aumentado de 8dp
+                                Spacer(modifier = Modifier.height(12.dp))
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceEvenly
                                 ) {
-                                    // Mini-cards con sombras más pronunciadas
+
                                     Card(
                                         colors = CardDefaults.cardColors(
-                                            containerColor = Color1.copy(alpha = 0.15f)  // Ligeramente más visible
+                                            containerColor = Color1.copy(alpha = 0.15f)
                                         ),
                                         elevation = CardDefaults.cardElevation(
-                                            defaultElevation = 8.dp  // Aumentado de 4dp
+                                            defaultElevation = 8.dp
                                         )
                                     ) {
                                         Text(
                                             text = "Edad: ${detalle["edad"]}",
                                             style = MaterialTheme.typography.bodyMedium,
                                             color = Color.Black,
-                                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)  // Padding aumentado
+                                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
                                         )
                                     }
 
@@ -278,10 +276,10 @@ fun DetailScreen(detalles: List<HashMap<String, String>>?) {
                         }
                     }
 
-                    // Indicador de página con sombras más pronunciadas
+
                     Row(
                         modifier = Modifier
-                            .padding(top = 20.dp)  // Aumentado de 16dp
+                            .padding(top = 20.dp)
                             .fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
                     ) {
@@ -293,11 +291,11 @@ fun DetailScreen(detalles: List<HashMap<String, String>>?) {
                             }
                             Card(
                                 modifier = Modifier
-                                    .padding(3.dp)  // Aumentado de 2dp
+                                    .padding(3.dp)
                                     .size(8.dp),
                                 shape = RoundedCornerShape(4.dp),
                                 elevation = CardDefaults.cardElevation(
-                                    defaultElevation = 8.dp  // Aumentado de 4dp
+                                    defaultElevation = 8.dp
                                 ),
                                 colors = CardDefaults.cardColors(
                                     containerColor = color
