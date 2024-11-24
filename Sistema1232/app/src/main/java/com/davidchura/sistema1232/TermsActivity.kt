@@ -235,6 +235,43 @@ class TermsActivity : ComponentActivity() {
                                     textAlign = TextAlign.Center,
                                 )
                             }
+                            // Icono 2: Logo03 -> PaisesActivity
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .size(48.dp)
+                                    .clickable {
+                                        startActivity(
+                                            Intent(
+                                                this@TermsActivity,
+                                                MainActivity2::class.java
+                                            )
+                                        )
+                                    }
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .border(2.dp, Color3, RoundedCornerShape(8.dp))
+                                        .padding(4.dp)
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.logo01),
+                                        contentDescription = "Logo03",
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                }
+                                Text(
+                                    text = stringResource(id = R.string.user),
+                                    style = MaterialTheme.typography.bodySmall.copy(
+                                        fontFamily = Manrope,
+                                        fontWeight = FontWeight.Medium,
+                                        color = Color4
+                                    ),
+                                    textAlign = TextAlign.Center,
+                                )
+                            }
 
                             // Icono 2: Logo03 -> PaisesActivity
                             Column(

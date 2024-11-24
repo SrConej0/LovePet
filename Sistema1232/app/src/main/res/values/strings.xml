@@ -35,11 +35,13 @@
     <string name="found">Salir</string>
     <string name="adoption">Adoption</string>
     <string name="main">Paises</string>
+    <string name="user">Usuarios</string>
     <string name="new_ad">New ad</string>
     <string name="messages">Messages</string>
     <string name="settings">Settings</string>
     <string name="terms_descirption">New york, Brooklyn September 26, 10:33</string>
     <string name="title_detalle">Detalle</string>
+     <string name="update_user">Actualizar usuario</string>
 
     <string name="title_members">Miembros</string>
     <string name="title_paises">Paises</string>
@@ -59,6 +61,9 @@
     <string name="title_activity_paises">PaisesActivity</string>
     <string name="title_activity_detalle">DetalleActivity</string>
     <string name="title_activity_paises_insert">PaisesInsertActivity</string>
+    <string name="title_activity_main">main2</string>
+    <string name="title_activity_user_insert">inset</string>
+    <string name="title_activity_user_update">update</string>
 
 
 </resources>

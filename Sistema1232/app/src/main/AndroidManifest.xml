@@ -17,6 +17,7 @@
         android:theme="@style/Theme.Sistema1232"
         tools:targetApi="tiramisu">
 
+
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -75,6 +76,22 @@
             android:exported="false"
             android:label="@string/title_activity_begin"
             android:theme="@style/Theme.Sistema1232" />
+
+        <activity android:name=".MainActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.Sistema1232" />
+
+        <activity android:name=".UserInsertActivity"
+            android:exported="false"
+            android:label="@string/title_activity_user_insert"
+            android:theme="@style/Theme.Sistema1232" />
+
+        <activity android:name=".UserUpdateActivity"
+            android:exported="false"
+            android:label="@string/title_activity_user_update"
+            android:theme="@style/Theme.Sistema1232" />
+
 
         <activity
             android:name=".MainActivity"
