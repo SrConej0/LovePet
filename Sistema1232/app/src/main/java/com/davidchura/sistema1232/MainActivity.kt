@@ -55,7 +55,8 @@ import com.davidchura.sistema1232.ui.theme.Sistema1232Theme
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
-
+// Contraseno es 999999999 y 1111
+// Contraseno es 999999999 y 1111
 class MainActivity() : ComponentActivity(), Parcelable {
     constructor(parcel: Parcel) : this() {
     }
@@ -138,7 +139,7 @@ class MainActivity() : ComponentActivity(), Parcelable {
                         }
 
                         Spacer(modifier = Modifier.height(20.dp))
-
+                        // Contraseno es 999999999 y 1111
                         ElevatedButton(
                             onClick = {
                                 if (phoneNumber == "999999999") {
@@ -211,7 +212,7 @@ class MainActivity() : ComponentActivity(), Parcelable {
                     }
 
 
-                        if (isPopupVisible) {
+                    if (isPopupVisible) {
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()

@@ -21,10 +21,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,12 +45,16 @@ class HomeActivity : ComponentActivity() {
         setContent {
             Sistema1232Theme {
                 var currentPage by remember { mutableIntStateOf(0) }
+                var startX by remember { mutableStateOf(0f) }
+                var isDragging by remember { mutableStateOf(false) }
+
                 val images = listOf(R.drawable.fondo01, R.drawable.fondo02, R.drawable.fondo03)
                 val texts = listOf(
                     Pair(R.string.home1, R.string.home10),
                     Pair(R.string.home2, R.string.home20),
                     Pair(R.string.home3, R.string.home30)
                 )
+
                 Scaffold(
                     modifier = Modifier
                         .fillMaxSize()
@@ -64,14 +65,34 @@ class HomeActivity : ComponentActivity() {
                                 .padding(paddingValues)
                                 .background(Color6)
                                 .pointerInput(Unit) {
-                                    detectHorizontalDragGestures { _, dragAmount ->
-                                        when {
-                                            dragAmount > 100 -> currentPage = (currentPage - 1).coerceAtLeast(0)
-                                            dragAmount < -100 -> currentPage = (currentPage + 1).coerceAtMost(images.size - 1)
+                                    detectHorizontalDragGestures(
+                                        onDragStart = { offset ->
+                                            startX = offset.x
+                                            isDragging = true
+                                        },
+                                        onDragEnd = {
+                                            isDragging = false
+                                        },
+                                        onHorizontalDrag = { change, dragAmount ->
+                                            if (isDragging) {
+                                                val endX = change.position.x
+                                                val deltaX = endX - startX
+
+                                                if (deltaX > 100 && currentPage > 0) {
+                                                    // Deslizamiento hacia la derecha (retroceder)
+                                                    currentPage--
+                                                    isDragging = false
+                                                } else if (deltaX < -100 && currentPage < images.size - 1) {
+                                                    // Deslizamiento hacia la izquierda (avanzar)
+                                                    currentPage++
+                                                    isDragging = false
+                                                }
+                                            }
                                         }
-                                    }
+                                    )
                                 }
                         ) {
+                            // Resto del código de tu UI permanece igual...
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()

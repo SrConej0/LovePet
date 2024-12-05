@@ -56,6 +56,7 @@ class BeginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            // Contraseno es 999999999 y 1111
             Sistema1232Theme {
                 Box(
                     modifier = Modifier
@@ -90,48 +91,48 @@ class BeginActivity : ComponentActivity() {
                                 finish()
                             } else {
 
-                            val url = "http://10.0.2.2/servicio/ingresocodigo.php"
-                            val requestBody = FormBody.Builder()
-                                .add("telefono", telefono ?: "")
-                                .add("codigo", codigo)
-                                .build()
+                                val url = "http://10.0.2.2/servicio/ingresocodigo.php"
+                                val requestBody = FormBody.Builder()
+                                    .add("telefono", telefono ?: "")
+                                    .add("codigo", codigo)
+                                    .build()
 
-                            val request = Request.Builder()
-                                .url(url)
-                                .post(requestBody)
-                                .build()
+                                val request = Request.Builder()
+                                    .url(url)
+                                    .post(requestBody)
+                                    .build()
 
-                            val client = OkHttpClient()
-                            client.newCall(request).enqueue(object : Callback {
-                                override fun onFailure(call: Call, e: IOException) {
-                                    errorMessage = "Error de conexión. Inténtalo de nuevo."
-                                }
-
-                                override fun onResponse(call: Call, response: Response) {
-                                    if (response.isSuccessful) {
-                                        val responseBody = response.body?.string()
-                                        val jsonResponse = JSONObject(responseBody.toString())
-
-                                        if (jsonResponse.getBoolean("success")) {
-                                            startActivity(
-                                                Intent(
-                                                    this@BeginActivity,
-                                                    HomeActivity::class.java
-                                                )
-                                            )
-                                            finish()
-                                        } else {
-                                            errorMessage = jsonResponse.getString("message")
-                                        }
-                                    } else {
-                                        errorMessage =
-                                            "Error en la verificación. Inténtalo de nuevo."
+                                val client = OkHttpClient()
+                                client.newCall(request).enqueue(object : Callback {
+                                    override fun onFailure(call: Call, e: IOException) {
+                                        errorMessage = "Error de conexión. Inténtalo de nuevo."
                                     }
-                                }
-                            })
+
+                                    override fun onResponse(call: Call, response: Response) {
+                                        if (response.isSuccessful) {
+                                            val responseBody = response.body?.string()
+                                            val jsonResponse = JSONObject(responseBody.toString())
+
+                                            if (jsonResponse.getBoolean("success")) {
+                                                startActivity(
+                                                    Intent(
+                                                        this@BeginActivity,
+                                                        HomeActivity::class.java
+                                                    )
+                                                )
+                                                finish()
+                                            } else {
+                                                errorMessage = jsonResponse.getString("message")
+                                            }
+                                        } else {
+                                            errorMessage =
+                                                "Error en la verificación. Inténtalo de nuevo."
+                                        }
+                                    }
+                                })
+                            }
                         }
                     }
-                }
 
                     Column(
                         modifier = Modifier
