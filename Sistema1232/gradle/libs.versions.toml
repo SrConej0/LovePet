@@ -1,22 +1,23 @@
 [versions]
 activityComposeVersion = "1.9.3"
-agp = "8.6.1"
-androidxComposeBom = "2024.11.00"
+agp = "8.6.0"
+androidxComposeBom = "2024.10.00"
 coilCompose = "2.6.0"
-coilComposeVersion = "2.6.0"
-coilKtCoilCompose = "2.6.0"
-composeBomVersion = "2024.11.00"
+coilComposeVersion = "2.2.2"
+coilKtCoilCompose = "1.4.0"
+composeBomVersion = "2024.09.02"
 datastorePreferences = "1.1.1"
-kotlin = "2.0.21"
-coreKtx = "1.15.0"
+kotlin = "1.9.0"
+coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.11.00"
+lifecycleRuntimeKtx = "2.8.6"
+activityCompose = "1.9.2"
+composeBom = "2024.09.03"
 runtimeSavedInstanceState = "1.0.0-alpha11"
 volley = "1.2.1"
+roomCommon = "2.6.1"
 roomKtx = "2.6.1"
 
 [libraries]
@@ -51,6 +52,7 @@ ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
+androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 
 [plugins]
