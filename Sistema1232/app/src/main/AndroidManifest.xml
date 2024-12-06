@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,83 +18,90 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sistema1232"
         tools:targetApi="tiramisu">
-
-
+        <activity
+            android:name=".MapasViewActivity"
+            android:exported="false"
+            android:label="@string/title_activity_mapas_view"
+            android:theme="@style/Theme.Sistema1232" />
+        <activity
+            android:name=".MapasInsertActivity"
+            android:exported="false"
+            android:label="@string/title_activity_mapas_insert"
+            android:theme="@style/Theme.Sistema1232" />
+        <activity
+            android:name=".MapasUpdateActivity"
+            android:exported="false"
+            android:label="@string/title_activity_mapas_update"
+            android:theme="@style/Theme.Sistema1232" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:label="@string/title_activity_splash"
-            android:theme="@style/Theme.Sistema1232">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:theme="@style/Theme.Sistema1232" />
         <activity
             android:name=".PaisesInsertActivity"
             android:exported="false"
             android:label="@string/title_activity_paises_insert"
             android:theme="@style/Theme.Sistema1232" />
-
         <activity
             android:name=".DetalleActivity"
             android:exported="false"
             android:label="@string/title_activity_detalle"
             android:theme="@style/Theme.Sistema1232" />
-
         <activity
             android:name=".PaisesActivity"
             android:exported="false"
             android:label="@string/title_activity_paises"
             android:theme="@style/Theme.Sistema1232" />
-
         <activity
-            android:name=".ProductsActivity"
+            android:name=".MapasActivity"
             android:exported="false"
             android:label="@string/title_activity_products"
             android:theme="@style/Theme.Sistema1232" />
-
         <activity
             android:name=".MembersActivity"
             android:exported="false"
             android:label="@string/title_activity_members"
             android:theme="@style/Theme.Sistema1232" />
-
         <activity
             android:name=".HomeActivity"
             android:exported="false"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.Sistema1232" />
-
         <activity
             android:name=".TermsActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_terms"
-            android:theme="@style/Theme.Sistema1232" />
+            android:theme="@style/Theme.Sistema1232">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCQDOkv1UQ1y1wGaXVdcAXNizNLXeHeeGU" />
         <activity
             android:name=".BeginActivity"
             android:exported="false"
             android:label="@string/title_activity_begin"
             android:theme="@style/Theme.Sistema1232" />
-
-        <activity android:name=".MainActivity2"
+        <activity
+            android:name=".MainActivity2"
             android:exported="false"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.Sistema1232" />
-
-        <activity android:name=".UserInsertActivity"
+        <activity
+            android:name=".UserInsertActivity"
             android:exported="false"
             android:label="@string/title_activity_user_insert"
             android:theme="@style/Theme.Sistema1232" />
-
-        <activity android:name=".UserUpdateActivity"
+        <activity
+            android:name=".UserUpdateActivity"
             android:exported="false"
             android:label="@string/title_activity_user_update"
             android:theme="@style/Theme.Sistema1232" />
-
-
         <activity
             android:name=".MainActivity"
             android:exported="false"

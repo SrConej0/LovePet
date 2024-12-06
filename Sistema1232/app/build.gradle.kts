@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.play.services.maps)
+    implementation(libs.places)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,7 +81,7 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.volley)
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    annotationProcessor(libs.androidx.room.compiler)
     kapt("androidx.room:room-compiler:2.6.1")
     val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
     implementation(composeBom)
@@ -87,6 +89,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.ui.tooling.preview)
     implementation(kotlin("script-runtime"))
 
-
+    implementation (libs.maps.compose)
+    implementation (libs.play.services.location)
+    implementation (libs.places)
 
 }

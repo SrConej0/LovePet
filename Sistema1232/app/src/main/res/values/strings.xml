@@ -64,6 +64,12 @@
     <string name="title_activity_main">main2</string>
     <string name="title_activity_user_insert">inset</string>
     <string name="title_activity_user_update">update</string>
+    <string name="mapa">Mapas</string>
+    <string name="title_activity_mapas_insert">MapasInsertActivity</string>
+    <string name="title_activity_mapas_update">MapasUpdateActivity</string>
+    <string name="update_mapa">Actualizar Mapas</string>
+    <string name="title_activity_mapas_view">MapasViewActivity</string>
+    <string name="albergues">Albergues</string>
 
 
 </resources>
