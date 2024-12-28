@@ -245,6 +245,43 @@ class TermsActivity : ComponentActivity() {
                                         startActivity(
                                             Intent(
                                                 this@TermsActivity,
+                                                CanvasActivity::class.java
+                                            )
+                                        )
+                                    }
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .border(2.dp, Color3, RoundedCornerShape(8.dp))
+                                        .padding(4.dp)
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.logo07),
+                                        contentDescription = "Logo03",
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                }
+                                Text(
+                                    text = stringResource(id = R.string.statistics),
+                                    style = MaterialTheme.typography.bodySmall.copy(
+                                        fontFamily = Manrope,
+                                        fontWeight = FontWeight.Medium,
+                                        color = Color4
+                                    ),
+                                    textAlign = TextAlign.Center,
+                                )
+                            }
+                            // Icono 2: Logo03 -> PaisesActivity
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .size(48.dp)
+                                    .clickable {
+                                        startActivity(
+                                            Intent(
+                                                this@TermsActivity,
                                                 MainActivity2::class.java
                                             )
                                         )
@@ -339,6 +376,44 @@ class TermsActivity : ComponentActivity() {
                                 }
                                 Text(
                                     text = stringResource(id = R.string.adoption),
+                                    style = MaterialTheme.typography.bodySmall.copy(
+                                        fontFamily = Manrope,
+                                        fontWeight = FontWeight.Medium,
+                                        color = Color4
+                                    ),
+                                    textAlign = TextAlign.Center,
+                                )
+                            }
+
+                            // Icono 2: Logo03 -> ParquesActivity
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .size(48.dp)
+                                    .clickable {
+                                        startActivity(
+                                            Intent(
+                                                this@TermsActivity,
+                                                ParquesActivity::class.java
+                                            )
+                                        )
+                                    }
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(32.dp)
+                                        .border(2.dp, Color3, RoundedCornerShape(8.dp))
+                                        .padding(4.dp)
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.logo06),
+                                        contentDescription = "Logo03",
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                }
+                                Text(
+                                    text = stringResource(id = R.string.parques),
                                     style = MaterialTheme.typography.bodySmall.copy(
                                         fontFamily = Manrope,
                                         fontWeight = FontWeight.Medium,

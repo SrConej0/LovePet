@@ -70,6 +70,15 @@
     <string name="update_mapa">Actualizar Mapas</string>
     <string name="title_activity_mapas_view">MapasViewActivity</string>
     <string name="albergues">Albergues</string>
+    <string name="parques">Parques</string>
+    <string name="title_activity_parques">ParquesActivity</string>
+    <string name="title_activity_parque_detalle">ParqueDetalleActivity</string>
+    <string name="title_activity_parque_foto">ParqueFotoActivity</string>
+    <string name="statistics">Grafico</string>
+    <string name="title_activity_canvas">CanvasActivity</string>
+    <string name="title_activity_canvas_insert">CanvasInsertActivity</string>
+    <string name="title_activity_canvas_update">CanvasUpdateActivity</string>
+    <string name="title_activity_canvas_view">CanvasViewActivity</string>
 
 
 </resources>

@@ -19,6 +19,41 @@
         android:theme="@style/Theme.Sistema1232"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".CanvasViewActivity"
+            android:exported="false"
+            android:label="@string/title_activity_canvas_view"
+            android:theme="@style/Theme.Sistema1232" />
+        <activity
+            android:name=".CanvasUpdateActivity"
+            android:exported="false"
+            android:label="@string/title_activity_canvas_update"
+            android:theme="@style/Theme.Sistema1232" />
+        <activity
+            android:name=".CanvasInsertActivity"
+            android:exported="false"
+            android:label="@string/title_activity_canvas_insert"
+            android:theme="@style/Theme.Sistema1232" />
+        <activity
+            android:name=".CanvasActivity"
+            android:exported="false"
+            android:label="@string/title_activity_canvas"
+            android:theme="@style/Theme.Sistema1232" />
+        <activity
+            android:name=".ParqueFotoActivity"
+            android:exported="false"
+            android:label="@string/title_activity_parque_foto"
+            android:theme="@style/Theme.Sistema1232" />
+        <activity
+            android:name=".ParqueDetalleActivity"
+            android:exported="false"
+            android:label="@string/title_activity_parque_detalle"
+            android:theme="@style/Theme.Sistema1232" />
+        <activity
+            android:name=".ParquesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_parques"
+            android:theme="@style/Theme.Sistema1232" />
+        <activity
             android:name=".MapasViewActivity"
             android:exported="false"
             android:label="@string/title_activity_mapas_view"
@@ -79,9 +114,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCQDOkv1UQ1y1wGaXVdcAXNizNLXeHeeGU" />
+
         <activity
             android:name=".BeginActivity"
             android:exported="false"

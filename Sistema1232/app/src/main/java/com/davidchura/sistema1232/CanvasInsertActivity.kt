@@ -1,7 +1,6 @@
 package com.davidchura.sistema1232
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,14 +17,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import com.davidchura.sistema1232.dao.Mapa
-import com.davidchura.sistema1232.dao.MapaDatabaseProvider
+import com.davidchura.sistema1232.dao.Canvas
+import com.davidchura.sistema1232.dao.CanvasDatabaseProvider
 import com.davidchura.sistema1232.ui.theme.Color1
 import com.davidchura.sistema1232.ui.theme.Color4
 import com.davidchura.sistema1232.ui.theme.Sistema1232Theme
 import kotlinx.coroutines.launch
 
-class MapasInsertActivity : ComponentActivity() {
+class CanvasInsertActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,9 +32,12 @@ class MapasInsertActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             var nombre by remember { mutableStateOf("") }
-            var latitud by remember { mutableStateOf("") }
-            var longitud by remember { mutableStateOf("") }
-            var descripcion by remember { mutableStateOf("") }
+            var numero1 by remember { mutableStateOf("") }
+            var numero2 by remember { mutableStateOf("") }
+            var numero3 by remember { mutableStateOf("") }
+            var numero4 by remember { mutableStateOf("") }
+            var numero5 by remember { mutableStateOf("") }
+            var numero6 by remember { mutableStateOf("") }
 
             Sistema1232Theme {
                 Scaffold(
@@ -46,7 +48,7 @@ class MapasInsertActivity : ComponentActivity() {
                                 containerColor = Color1,
                                 titleContentColor = Color4
                             ),
-                            title = { Text("Nuevo Mapa", color = Color4) },
+                            title = { Text("Nuevo Canvas", color = Color4) },
                             navigationIcon = {
                                 IconButton(onClick = { finish() }) {
                                     Icon(
@@ -80,7 +82,7 @@ class MapasInsertActivity : ComponentActivity() {
                                 modifier = Modifier.padding(16.dp)
                             ) {
                                 Text(
-                                    text = "Nuevo Mapa",
+                                    text = "Nuevo Canvas",
                                     style = MaterialTheme.typography.headlineSmall,
                                     color = Color4,
                                     fontWeight = FontWeight.Bold,
@@ -96,10 +98,11 @@ class MapasInsertActivity : ComponentActivity() {
 
                                 Spacer(modifier = Modifier.height(16.dp))
 
+                                // 6 Number Input Fields
                                 OutlinedTextField(
-                                    value = latitud,
-                                    onValueChange = { latitud = it },
-                                    label = { Text("Latitud", color = Color4) },
+                                    value = numero1,
+                                    onValueChange = { numero1 = it },
+                                    label = { Text("Número 1", color = Color4) },
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.fillMaxWidth()
                                 )
@@ -107,9 +110,9 @@ class MapasInsertActivity : ComponentActivity() {
                                 Spacer(modifier = Modifier.height(16.dp))
 
                                 OutlinedTextField(
-                                    value = longitud,
-                                    onValueChange = { longitud = it },
-                                    label = { Text("Longitud", color = Color4) },
+                                    value = numero2,
+                                    onValueChange = { numero2 = it },
+                                    label = { Text("Número 2", color = Color4) },
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.fillMaxWidth()
                                 )
@@ -117,9 +120,40 @@ class MapasInsertActivity : ComponentActivity() {
                                 Spacer(modifier = Modifier.height(16.dp))
 
                                 OutlinedTextField(
-                                    value = descripcion,
-                                    onValueChange = { descripcion = it },
-                                    label = { Text("Descripción", color = Color4) },
+                                    value = numero3,
+                                    onValueChange = { numero3 = it },
+                                    label = { Text("Número 3", color = Color4) },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+
+                                Spacer(modifier = Modifier.height(16.dp))
+
+                                OutlinedTextField(
+                                    value = numero4,
+                                    onValueChange = { numero4 = it },
+                                    label = { Text("Número 4", color = Color4) },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+
+                                Spacer(modifier = Modifier.height(16.dp))
+
+                                OutlinedTextField(
+                                    value = numero5,
+                                    onValueChange = { numero5 = it },
+                                    label = { Text("Número 5", color = Color4) },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+
+                                Spacer(modifier = Modifier.height(16.dp))
+
+                                OutlinedTextField(
+                                    value = numero6,
+                                    onValueChange = { numero6 = it },
+                                    label = { Text("Número 6", color = Color4) },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.fillMaxWidth()
                                 )
 
@@ -127,24 +161,32 @@ class MapasInsertActivity : ComponentActivity() {
 
                                 OutlinedButton(
                                     onClick = {
-                                        val database = MapaDatabaseProvider.getDatabase(this@MapasInsertActivity)
-                                        val mapaDao = database.mapaDao()
+                                        val database = CanvasDatabaseProvider.getDatabase(this@CanvasInsertActivity)
+                                        val canvasDao = database.canvasDao()
                                         lifecycleScope.launch {
                                             try {
-                                                val newMapa = Mapa(
+                                                val newCanvas = Canvas(
                                                     nombre = nombre,
-                                                    latitud = latitud.toDoubleOrNull() ?: 0.0,
-                                                    longitud = longitud.toDoubleOrNull() ?: 0.0,
-                                                    descripcion = descripcion
+                                                    numero1 = numero1.toIntOrNull() ?: 0,
+                                                    numero2 = numero2.toIntOrNull() ?: 0,
+                                                    numero3 = numero3.toIntOrNull() ?: 0,
+                                                    numero4 = numero4.toIntOrNull() ?: 0,
+                                                    numero5 = numero5.toIntOrNull() ?: 0,
+                                                    numero6 = numero6.toIntOrNull() ?: 0
                                                 )
-                                                mapaDao.insertMapa(newMapa)
-                                                Toast.makeText(this@MapasInsertActivity,
-                                                    "Mapa insertado", Toast.LENGTH_SHORT).show()
+                                                canvasDao.insertCanvas(newCanvas)
+                                                Toast.makeText(
+                                                    this@CanvasInsertActivity,
+                                                    "Canvas insertado",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
                                                 finish()
                                             } catch (e: Exception) {
-                                                Log.e("MapasInsertActivity", "Error al insertar el mapa", e)
-                                                Toast.makeText(this@MapasInsertActivity,
-                                                    "Error al insertar el mapa", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(
+                                                    this@CanvasInsertActivity,
+                                                    "Error al insertar el canvas",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
                                             }
                                         }
                                     },

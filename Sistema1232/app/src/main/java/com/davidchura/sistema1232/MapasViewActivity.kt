@@ -30,13 +30,13 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import java.util.Random
 
 class MapasViewActivity : ComponentActivity() {
-    // Función para generar un color aleatorio
+
     private fun generateRandomColor(): Int {
         val random = Random()
         return android.graphics.Color.rgb(
-            random.nextInt(256),  // Componente rojo aleatorio (0-255)
-            random.nextInt(256),  // Componente verde aleatorio (0-255)
-            random.nextInt(256)   // Componente azul aleatorio (0-255)
+            random.nextInt(256),
+            random.nextInt(256),
+            random.nextInt(256)
         )
     }
 
@@ -45,13 +45,11 @@ class MapasViewActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        // Retrieve data from intent
         val mapaLatitud = intent.getDoubleExtra("mapaLatitud", 0.0)
         val mapaLongitud = intent.getDoubleExtra("mapaLongitud", 0.0)
         val mapaNombre = intent.getStringExtra("mapaNombre") ?: "Ubicación"
         val mapaDescripcion = intent.getStringExtra("mapaDescripcion") ?: ""
 
-        // Generar un color aleatorio para el fondo de la TopAppBar
         val topBarColor = generateRandomColor()
 
         setContent {
