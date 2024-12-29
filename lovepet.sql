@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2024 a las 06:10:29
+-- Servidor: localhost:3306
+-- Tiempo de generación: 17-12-2024 a las 03:31:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -118,6 +118,37 @@ INSERT INTO `mascotas` (`id`, `nombre`, `descripcion`, `foto`, `edad`, `tipo_id`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `parquesmascotas`
+--
+
+CREATE TABLE `parquesmascotas` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `latitud` decimal(12,8) DEFAULT NULL,
+  `longitud` decimal(12,8) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `visitantes` int(11) DEFAULT NULL,
+  `areas_verdes` int(11) DEFAULT NULL,
+  `instalaciones` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `parquesmascotas`
+--
+
+INSERT INTO `parquesmascotas` (`id`, `nombre`, `descripcion`, `latitud`, `longitud`, `foto`, `visitantes`, `areas_verdes`, `instalaciones`) VALUES
+(1, 'Parque Canino Esperancita', 'Parque para perros con áreas de juego, zonas de descanso y vistas al mar en la Costa Verde de Magdalena. Ideal para socializar a las mascotas y disfrutar de un día al aire libre.', -12.10294207, -77.06545081, 'parquecaninoesperancita.jpg', 200, 5, 'Fuentes de agua, bancos'),
+(2, 'Play Land Can', 'Parque ubicado en San Borja, cuenta con áreas de juego para perros, zonas de descanso y sombra, y equipamiento para ejercicio canino. Perfecto para mantener a las mascotas activas y felices.', -12.10278307, -76.98860833, 'playlandcan.jpg', 150, 4, 'Equipos de agilidad, sombra'),
+(3, 'Zona Guau', 'Este espacio recreativo en Los Olivos ofrece equipos de agilidad, áreas de juego y zonas verdes para que los perros corran y jueguen libremente. Un lugar favorito para los entrenadores de perros.', -11.98338295, -77.06695023, 'zonaguau.jpg', 180, 6, 'Equipos de agilidad, sombra'),
+(4, 'Divertican', 'Parque canino en San Isidro con fuentes de agua, áreas de sombra y equipamiento de juego. Ideal para refrescarse y jugar durante los días calurosos.', -12.10075278, -77.02273413, 'divertican.jpg', 120, 3, 'Fuentes de agua, bancos'),
+(5, 'Parque de las Mascotas', 'Ubicado en Jesús María, este parque urbano cuenta con zonas de juego, áreas verdes y bancos para que los dueños de mascotas puedan descansar mientras sus perros juegan.', -12.06811939, -77.04133415, 'parquedelasmacotas.jpg', 170, 5, 'Bancos, áreas de juego'),
+(6, 'Parque Texcoco', 'Área canina en La Molina con equipos de ejercicio, áreas de descanso y una gran variedad de superficies para que los perros puedan explorar y disfrutar.', -12.09529442, -76.92293350, 'parquetexcoco.jpg', 130, 4, 'Equipos de ejercicio, bancos'),
+(7, 'Espacios para Mascotas', 'En Miraflores, este parque ofrece áreas de juego, zonas de descanso y vistas impresionantes. Un lugar popular para paseos y juegos al aire libre.', -12.12160904, -77.03041772, 'espaciosparamascotas.jpg', 160, 5, 'Áreas de juego, sombra');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tipos_animales`
 --
 
@@ -162,6 +193,12 @@ ALTER TABLE `mascotas`
   ADD KEY `tipo_id` (`tipo_id`);
 
 --
+-- Indices de la tabla `parquesmascotas`
+--
+ALTER TABLE `parquesmascotas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `tipos_animales`
 --
 ALTER TABLE `tipos_animales`
@@ -182,6 +219,12 @@ ALTER TABLE `ingreso`
 --
 ALTER TABLE `mascotas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT de la tabla `parquesmascotas`
+--
+ALTER TABLE `parquesmascotas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas

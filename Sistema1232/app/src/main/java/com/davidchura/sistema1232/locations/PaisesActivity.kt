@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232
+package com.davidchura.sistema1232.locations
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +17,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -25,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.davidchura.sistema1232.R
 import com.davidchura.sistema1232.ui.theme.Color1
 import com.davidchura.sistema1232.ui.theme.Color4
 import com.davidchura.sistema1232.ui.theme.Sistema1232Theme

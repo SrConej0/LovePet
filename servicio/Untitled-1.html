@@ -1,0 +1,472 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="DemoWEB_Sem09.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="es">
+<head runat="server">
+    <!-- Configuración básica del documento -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Dashboard Analytics</title>
+
+    <!-- Dependencias CSS: Bootstrap, Poppins font, Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* Variables globales para consistencia en colores */
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --dark-color: #1e1b4b;
+            --light-color: #eef2ff;
+        }
+
+        /* Reset básico y configuración de altura */
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Configuración del fondo y estilos base del body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, 
+                rgba(30, 27, 75, 0.5), 
+                rgba(45, 27, 105, 0.5)
+            ), url('https://i.postimg.cc/vZNrNsQt/pexels-photo-8543167.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: var(--light-color);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animación de entrada para el contenido */
+        .content-wrapper {
+            animation: slideIn 0.4s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Estilos del sidebar - Panel lateral de navegación */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 280px;
+            background: rgba(30, 27, 75, 0.3);
+            backdrop-filter: blur(5px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem 1.5rem;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        /* Estilos del logo y título */
+        .sidebar-brand {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--light-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Estilo para la imagen del logo */
+        .logo-img {
+            width: 130px;
+            object-fit: contain;
+        }
+
+        /* Menú de navegación */
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Enlaces de navegación */
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            color: var(--light-color);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            gap: 1rem;
+        }
+
+        .nav-link i {
+            font-size: 1.25rem;
+            width: 1.5rem;
+            text-align: center;
+        }
+
+        /* Efectos hover en enlaces */
+        .nav-link:hover, .nav-link.active {
+            background: rgba(99, 102, 241, 0.2);
+            transform: translateX(5px);
+        }
+
+        /* Personalización del acordeón de Bootstrap */
+        .accordion-button {
+            background: transparent !important;
+            color: var(--light-color) !important;
+            padding: 1rem !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background: rgba(99, 102, 241, 0.2) !important;
+        }
+
+        .accordion-button::after {
+            filter: brightness(0) invert(1);
+        }
+
+        .accordion-body {
+            background: transparent !important;
+            padding: 0.5rem 1rem 0.5rem 3rem !important;
+        }
+
+        .accordion-item {
+            background: transparent !important;
+            border: none !important;
+        }
+
+        /* Enlaces del submenú */
+        .sub-nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            color: var(--light-color);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            gap: 1rem;
+        }
+
+        .sub-nav-link:hover {
+            background: rgba(99, 102, 241, 0.2);
+            transform: translateX(5px);
+            color: var(--light-color);
+        }
+
+        /* Área de contenido principal */
+        .main-content {
+            margin-left: 280px;
+            padding: 2rem;
+            min-height: 100vh;
+            position: relative;
+            width: calc(100% - 280px);
+        }
+
+        .content-wrapper {
+            background: rgba(255, 255, 255, 0.4);
+            color: var(--dark-color);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            min-height: calc(100vh - 7rem);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos de tarjetas */
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* Pie de página */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 280px;
+            right: 0;
+            padding: 0.5rem 2rem;
+            background: rgba(30, 27, 75, 0.3);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: right;
+            z-index: 900;
+            font-size: 0.875rem;
+        }
+
+        /* Diseño responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .footer {
+                left: 0;
+            }
+
+            .toggle-sidebar {
+                display: block !important;
+            }
+        }
+
+        /* Botón toggle para sidebar móvil */
+        .toggle-sidebar {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        /* Estilos para validaciones */
+        .validation-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .required::after {
+            content: "*";
+            color: #dc3545;
+            margin-left: 4px;
+        }
+
+        .form-control:invalid {
+            border-color: #dc3545;
+        }
+    </style>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+</head>
+<body>
+    <!-- Formulario principal con validación -->
+    <form runat="server" class="needs-validation" novalidate>
+        <!-- ScriptManager para funcionalidad AJAX -->
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+            </Scripts>
+        </asp:ScriptManager>
+
+        <!-- Botón para mostrar/ocultar sidebar en móviles -->
+        <button class="toggle-sidebar" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Navegación lateral -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a class="sidebar-brand" runat="server" href="~/">
+                     <span>Hotel</span><img src="https://i.postimg.cc/fyWYHyhR/logo.png" alt="Logo" class="logo-img">
+                   
+                </a>
+            </div>
+            
+            <!-- Menú de navegación con acordeón -->
+            <div class="accordion nav-menu" id="sidebarAccordion">
+                <!-- Sección de Usuario -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#userCollapse">
+                            <i class="fas fa-user-circle me-2"></i>
+                            Usuario
+                        </button>
+                    </h2>
+                    <div id="userCollapse" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                        <div class="accordion-body">
+                            <a class="sub-nav-link" runat="server" href="~/">
+                                <i class="fas fa-users-cog"></i>
+                                <span>Usuarios</span>
+                            </a>
+                            <a class="sub-nav-link" runat="server" href="~/">
+                                <i class="fas fa-user-tag"></i>
+                                <span>Tipo de Usuario</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de Servicio -->
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/About">
+                        <i class="fas fa-concierge-bell"></i>
+                        <span>Servicio</span>
+                    </a>
+                </li>
+
+                <!-- Sección de Habitación -->
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/Contact">
+                        <i class="fas fa-bed"></i>
+                        <span>Habitación</span>
+                    </a>
+                </li>
+
+                <!-- Sección de Huéspedes -->
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/TestAccesoDatos.aspx">
+                        <i class="fas fa-users"></i>
+                        <span>Huespedes</span>
+                    </a>
+                </li>
+
+                <!-- Sección de Reservas -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#reservaCollapse">
+                            <i class="fas fa-calendar-check me-2"></i>
+                            Reserva
+                        </button>
+                    </h2>
+                    <div id="reservaCollapse" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                        <div class="accordion-body">
+                            <a class="sub-nav-link" runat="server" href="~/TestClaseNumero.aspx">
+                                <i class="fas fa-list-alt"></i>
+                                <span>Reservas</span>
+                            </a>
+                            <a class="sub-nav-link" runat="server" href="~/TestClaseNumero.aspx">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Crear Reserva</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de Reportes -->
+                <li class="nav-item">
+                    <a class="nav-link" runat="server" href="~/TestPlanilla.aspx">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reporte</span>
+                    </a>
+                </li>
+                <!-- Sección de Mantenimiento -->
+                <li class="nav-item">
+                   <a class="nav-link" runat="server" href="~/TestPlanilla.aspx">
+                        <i class="fas fa-tools"></i>
+                        <span>Mantenimientos</span>
+                    </a>
+                </li>
+            </div>
+        </nav>
+
+        <!-- Contenedor principal - Aquí se renderiza el contenido específico de cada página -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </div>
+        </main>
+
+        <!-- Pie de página - Muestra el año actual y el nombre de la empresa -->
+        <footer class="footer">
+            &copy; <%: DateTime.Now.Year %> La Pandilla
+        </footer>
+
+    </form>
+
+    <!-- Scripts de Bootstrap - Necesario para el funcionamiento del menú acordeón y componentes responsive -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script para funcionalidades personalizadas -->
+    <script>
+        // Función para controlar la visibilidad del sidebar en dispositivos móviles
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+
+        // Sistema de validación de formularios
+        (function () {
+            'use strict';
+
+            // Obtener todos los formularios que necesitan validación
+            var forms = document.querySelectorAll('.needs-validation');
+
+            // Prevenir envío si hay campos inválidos
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+        //
+        // 
+        // 
+
+        // Función para mostrar mensajes de validación personalizados
+        function showValidationMessage(inputElement, message) {
+            let validationDiv = inputElement.nextElementSibling;
+            if (!validationDiv || !validationDiv.classList.contains('validation-message')) {
+                validationDiv = document.createElement('div');
+                validationDiv.classList.add('validation-message');
+                inputElement.parentNode.insertBefore(validationDiv, inputElement.nextSibling);
+            }
+            validationDiv.textContent = message;
+        }
+    </script>
+</body>
+</html>

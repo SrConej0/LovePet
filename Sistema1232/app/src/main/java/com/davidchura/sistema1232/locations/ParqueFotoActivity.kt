@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232
+package com.davidchura.sistema1232.locations
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,7 +12,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp

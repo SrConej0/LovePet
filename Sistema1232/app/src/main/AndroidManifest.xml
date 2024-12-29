@@ -11,60 +11,60 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_love_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_love_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sistema1232"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".CanvasViewActivity"
+            android:name=".draw.CanvasViewActivity"
             android:exported="false"
             android:label="@string/title_activity_canvas_view"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".CanvasUpdateActivity"
+            android:name=".draw.CanvasUpdateActivity"
             android:exported="false"
             android:label="@string/title_activity_canvas_update"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".CanvasInsertActivity"
+            android:name=".draw.CanvasInsertActivity"
             android:exported="false"
             android:label="@string/title_activity_canvas_insert"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".CanvasActivity"
+            android:name=".draw.CanvasActivity"
             android:exported="false"
             android:label="@string/title_activity_canvas"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".ParqueFotoActivity"
+            android:name=".locations.ParqueFotoActivity"
             android:exported="false"
             android:label="@string/title_activity_parque_foto"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".ParqueDetalleActivity"
+            android:name=".locations.ParqueDetalleActivity"
             android:exported="false"
             android:label="@string/title_activity_parque_detalle"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".ParquesActivity"
+            android:name=".locations.ParquesActivity"
             android:exported="false"
             android:label="@string/title_activity_parques"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".MapasViewActivity"
+            android:name=".locations.MapasViewActivity"
             android:exported="false"
             android:label="@string/title_activity_mapas_view"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".MapasInsertActivity"
+            android:name=".locations.MapasInsertActivity"
             android:exported="false"
             android:label="@string/title_activity_mapas_insert"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".MapasUpdateActivity"
+            android:name=".locations.MapasUpdateActivity"
             android:exported="false"
             android:label="@string/title_activity_mapas_update"
             android:theme="@style/Theme.Sistema1232" />
@@ -72,9 +72,16 @@
             android:name=".SplashActivity"
             android:exported="true"
             android:label="@string/title_activity_splash"
-            android:theme="@style/Theme.Sistema1232" />
+            android:theme="@style/Theme.Sistema1232" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+
         <activity
-            android:name=".PaisesInsertActivity"
+            android:name=".locations.PaisesInsertActivity"
             android:exported="false"
             android:label="@string/title_activity_paises_insert"
             android:theme="@style/Theme.Sistema1232" />
@@ -84,12 +91,12 @@
             android:label="@string/title_activity_detalle"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".PaisesActivity"
+            android:name=".locations.PaisesActivity"
             android:exported="false"
             android:label="@string/title_activity_paises"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".MapasActivity"
+            android:name=".locations.MapasActivity"
             android:exported="false"
             android:label="@string/title_activity_products"
             android:theme="@style/Theme.Sistema1232" />
@@ -107,13 +114,7 @@
             android:name=".TermsActivity"
             android:exported="true"
             android:label="@string/title_activity_terms"
-            android:theme="@style/Theme.Sistema1232">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.Sistema1232"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -125,7 +126,7 @@
             android:label="@string/title_activity_begin"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".locations.MainActivity2"
             android:exported="false"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.Sistema1232" />

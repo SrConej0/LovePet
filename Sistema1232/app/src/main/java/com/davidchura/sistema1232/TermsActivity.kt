@@ -26,6 +26,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.davidchura.sistema1232.draw.CanvasActivity
+import com.davidchura.sistema1232.locations.MainActivity2
+import com.davidchura.sistema1232.locations.MapasActivity
+import com.davidchura.sistema1232.locations.PaisesActivity
+import com.davidchura.sistema1232.locations.ParquesActivity
 import com.davidchura.sistema1232.ui.theme.*
 class TermsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

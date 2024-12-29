@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232
+package com.davidchura.sistema1232.locations
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,32 +18,34 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.davidchura.sistema1232.dao.Canvas
-import com.davidchura.sistema1232.dao.CanvasDao
-import com.davidchura.sistema1232.dao.CanvasDatabaseProvider
+import com.davidchura.sistema1232.R
+import com.davidchura.sistema1232.dao.Mapa
+import com.davidchura.sistema1232.dao.MapaDao
+import com.davidchura.sistema1232.dao.MapaDatabaseProvider
 import com.davidchura.sistema1232.ui.theme.Color1
 import com.davidchura.sistema1232.ui.theme.Color4
 import kotlinx.coroutines.launch
 
-class CanvasActivity : ComponentActivity() {
-    private lateinit var canvasDao: CanvasDao
+class MapasActivity : ComponentActivity() {
+    private lateinit var mapaDao: MapaDao
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val database = CanvasDatabaseProvider.getDatabase(this)
-        canvasDao = database.canvasDao()
+        val database = MapaDatabaseProvider.getDatabase(this)
+        mapaDao = database.mapaDao()
 
         enableEdgeToEdge()
         setContent {
-            val canvasList = remember { mutableStateOf(listOf<Canvas>()) }
+            val mapaList = remember { mutableStateOf(listOf<Mapa>()) }
             val coroutineScope = rememberCoroutineScope()
 
             LaunchedEffect(Unit) {
-                canvasDao.getAllCanvases().collect { canvases ->
-                    canvasList.value = canvases
+                mapaDao.getAllMapas().collect { mapas ->
+                    mapaList.value = mapas
                 }
             }
 
@@ -55,7 +57,7 @@ class CanvasActivity : ComponentActivity() {
                             containerColor = Color1,
                             titleContentColor = Color4
                         ),
-                        title = { Text("Canvas") },
+                        title = { Text(stringResource(R.string.mapa)) },
                         navigationIcon = {
                             IconButton(onClick = { finish() }) {
                                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Color4)
@@ -67,7 +69,7 @@ class CanvasActivity : ComponentActivity() {
                     FloatingActionButton(
                         onClick = {
                             startActivity(
-                                Intent(this@CanvasActivity, CanvasInsertActivity::class.java)
+                                Intent(this@MapasActivity, MapasInsertActivity::class.java)
                             )
                         },
                         containerColor = Color1,
@@ -81,14 +83,14 @@ class CanvasActivity : ComponentActivity() {
                         .padding(paddingValues)
                         .padding(horizontal = 16.dp)
                 ) {
-                    items(canvasList.value) { canvas ->
+                    items(mapaList.value) { mapa ->
                         var showDeleteDialog by remember { mutableStateOf(false) }
 
                         if (showDeleteDialog) {
                             ConfirmDeleteDialog(
                                 onConfirm = {
                                     coroutineScope.launch {
-                                        canvasDao.deleteCanvas(canvas)
+                                        mapaDao.deleteMapa(mapa)
                                         showDeleteDialog = false
                                     }
                                 },
@@ -101,15 +103,12 @@ class CanvasActivity : ComponentActivity() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    val intent = Intent(this@CanvasActivity, CanvasViewActivity::class.java).apply {
-                                        putExtra("canvasId", canvas.id)
-                                        putExtra("canvasNombre", canvas.nombre)
-                                        putExtra("canvasNumero1", canvas.numero1)
-                                        putExtra("canvasNumero2", canvas.numero2)
-                                        putExtra("canvasNumero3", canvas.numero3)
-                                        putExtra("canvasNumero4", canvas.numero4)
-                                        putExtra("canvasNumero5", canvas.numero5)
-                                        putExtra("canvasNumero6", canvas.numero6)
+                                    val intent = Intent(this@MapasActivity, MapasViewActivity::class.java).apply {
+                                        putExtra("mapaId", mapa.id)
+                                        putExtra("mapaNombre", mapa.nombre)
+                                        putExtra("mapaLatitud", mapa.latitud)
+                                        putExtra("mapaLongitud", mapa.longitud)
+                                        putExtra("mapaDescripcion", mapa.descripcion)
                                     }
                                     startActivity(intent)
                                 },
@@ -126,10 +125,10 @@ class CanvasActivity : ComponentActivity() {
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(bottom = 8.dp)
+                                        .padding(bottom = 8.dp)  // Bajar los íconos
                                 ) {
                                     Text(
-                                        text = "ID: ${canvas.id}",
+                                        text = "ID: ${mapa.id}",
                                         style = MaterialTheme.typography.bodyMedium
                                     )
                                     Row(
@@ -137,16 +136,12 @@ class CanvasActivity : ComponentActivity() {
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         IconButton(onClick = {
-                                            // Navigate to Update Activity
-                                            val intent = Intent(this@CanvasActivity, CanvasUpdateActivity::class.java).apply {
-                                                putExtra("canvasId", canvas.id)
-                                                putExtra("canvasNombre", canvas.nombre)
-                                                putExtra("canvasNumero1", canvas.numero1)
-                                                putExtra("canvasNumero2", canvas.numero2)
-                                                putExtra("canvasNumero3", canvas.numero3)
-                                                putExtra("canvasNumero4", canvas.numero4)
-                                                putExtra("canvasNumero5", canvas.numero5)
-                                                putExtra("canvasNumero6", canvas.numero6)
+                                            val intent = Intent(this@MapasActivity, MapasUpdateActivity::class.java).apply {
+                                                putExtra("mapaId", mapa.id)
+                                                putExtra("mapaNombre", mapa.nombre)
+                                                putExtra("mapaLatitud", mapa.latitud)
+                                                putExtra("mapaLongitud", mapa.longitud)
+                                                putExtra("mapaDescripcion", mapa.descripcion)
                                             }
                                             startActivity(intent)
                                         }) {
@@ -166,12 +161,20 @@ class CanvasActivity : ComponentActivity() {
                                     }
                                 }
                                 Text(
-                                    text = canvas.nombre,
+                                    text = mapa.nombre,
                                     style = MaterialTheme.typography.titleMedium,
                                     fontWeight = FontWeight.Bold
                                 )
                                 Text(
-                                    text = "Números: ${canvas.numero1}, ${canvas.numero2}, ${canvas.numero3}, ${canvas.numero4}, ${canvas.numero5}, ${canvas.numero6}",
+                                    text = "Latitud: ${mapa.latitud}",
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                                Text(
+                                    text = "Longitud: ${mapa.longitud}",
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                                Text(
+                                    text = mapa.descripcion,
                                     style = MaterialTheme.typography.bodyMedium
                                 )
                             }
@@ -182,4 +185,37 @@ class CanvasActivity : ComponentActivity() {
             }
         }
     }
+}
+
+@Composable
+fun ConfirmDeleteDialog(
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(
+                onClick = onConfirm,
+                colors = ButtonDefaults.textButtonColors(
+                    contentColor = Color4
+                )
+            ) {
+                Text("Eliminar")
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = onDismiss,
+                colors = ButtonDefaults.textButtonColors(
+                    contentColor = Color4
+                )
+            ) {
+                Text("Cancelar")
+            }
+        },
+        containerColor = Color1,
+        title = { Text("Confirmar eliminación") },
+        text = { Text("¿Estás seguro de que deseas eliminar este elemento?") }
+    )
 }

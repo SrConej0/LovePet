@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232
+package com.davidchura.sistema1232.draw
 
 import android.os.Bundle
 import android.widget.Toast
@@ -9,56 +9,50 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import com.davidchura.sistema1232.dao.Mapa
-import com.davidchura.sistema1232.dao.MapaDatabaseProvider
+import com.davidchura.sistema1232.dao.Canvas
+import com.davidchura.sistema1232.dao.CanvasDatabaseProvider
 import com.davidchura.sistema1232.ui.theme.Color1
 import com.davidchura.sistema1232.ui.theme.Color4
 import com.davidchura.sistema1232.ui.theme.Sistema1232Theme
 import kotlinx.coroutines.launch
+import java.util.Date
 
-class MapasUpdateActivity : ComponentActivity() {
+class CanvasUpdateActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val bundle = intent.extras
-        val mapaId = bundle!!.getInt("mapaId")
-        val mapaNombre = bundle.getString("mapaNombre").toString()
-        val mapaLatitud = bundle.getDouble("mapaLatitud").toString()
-        val mapaLongitud = bundle.getDouble("mapaLongitud").toString()
-        val mapaDescripcion = bundle.getString("mapaDescripcion").toString()
+        val canvasId = bundle!!.getInt("canvasId")
+        val canvasNombre = bundle.getString("canvasNombre").toString()
+        val canvasNumero1 = bundle.getInt("canvasNumero1")
+        val canvasNumero2 = bundle.getInt("canvasNumero2")
+        val canvasNumero3 = bundle.getInt("canvasNumero3")
+        val canvasNumero4 = bundle.getInt("canvasNumero4")
+        val canvasNumero5 = bundle.getInt("canvasNumero5")
+        val canvasNumero6 = bundle.getInt("canvasNumero6")
 
         enableEdgeToEdge()
         setContent {
-            var id by remember { mutableStateOf(mapaId) }
-            var nombre by remember { mutableStateOf(mapaNombre) }
-            var latitud by remember { mutableStateOf(mapaLatitud) }
-            var longitud by remember { mutableStateOf(mapaLongitud) }
-            var descripcion by remember { mutableStateOf(mapaDescripcion) }
+            var id by remember { mutableStateOf(canvasId) }
+            var nombre by remember { mutableStateOf(canvasNombre) }
+            var numero1 by remember { mutableStateOf(canvasNumero1.toString()) }
+            var numero2 by remember { mutableStateOf(canvasNumero2.toString()) }
+            var numero3 by remember { mutableStateOf(canvasNumero3.toString()) }
+            var numero4 by remember { mutableStateOf(canvasNumero4.toString()) }
+            var numero5 by remember { mutableStateOf(canvasNumero5.toString()) }
+            var numero6 by remember { mutableStateOf(canvasNumero6.toString()) }
 
             Sistema1232Theme {
                 Scaffold(
@@ -69,7 +63,7 @@ class MapasUpdateActivity : ComponentActivity() {
                                 containerColor = Color1,
                                 titleContentColor = Color4
                             ),
-                            title = { Text(stringResource(R.string.update_mapa), color = Color4) },
+                            title = { Text("Actualizar Canvas", color = Color4) },
                             navigationIcon = {
                                 IconButton(onClick = { finish() }) {
                                     Icon(
@@ -103,13 +97,12 @@ class MapasUpdateActivity : ComponentActivity() {
                                 modifier = Modifier.padding(16.dp)
                             ) {
                                 Text(
-                                    text = "Actualizar Mapa",
+                                    text = "Actualizar Canvas",
                                     style = MaterialTheme.typography.headlineSmall,
                                     color = Color4,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(bottom = 16.dp)
                                 )
-
                                 OutlinedTextField(
                                     value = id.toString(),
                                     onValueChange = { },
@@ -117,69 +110,88 @@ class MapasUpdateActivity : ComponentActivity() {
                                     modifier = Modifier.fillMaxWidth(),
                                     enabled = false
                                 )
-
                                 Spacer(modifier = Modifier.height(16.dp))
-
                                 OutlinedTextField(
                                     value = nombre,
                                     onValueChange = { nombre = it },
                                     label = { Text("Nombre", color = Color4) },
                                     modifier = Modifier.fillMaxWidth()
                                 )
-
                                 Spacer(modifier = Modifier.height(16.dp))
-
                                 OutlinedTextField(
-                                    value = latitud,
-                                    onValueChange = { latitud = it },
-                                    label = { Text("Latitud", color = Color4) },
+                                    value = numero1,
+                                    onValueChange = { numero1 = it },
+                                    label = { Text("Primer Mes", color = Color4) },
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.fillMaxWidth()
                                 )
-
                                 Spacer(modifier = Modifier.height(16.dp))
-
                                 OutlinedTextField(
-                                    value = longitud,
-                                    onValueChange = { longitud = it },
-                                    label = { Text("Longitud", color = Color4) },
+                                    value = numero2,
+                                    onValueChange = { numero2 = it },
+                                    label = { Text("Segundo Mes", color = Color4) },
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.fillMaxWidth()
                                 )
-
                                 Spacer(modifier = Modifier.height(16.dp))
-
                                 OutlinedTextField(
-                                    value = descripcion,
-                                    onValueChange = { descripcion = it },
-                                    label = { Text("Descripción", color = Color4) },
+                                    value = numero3,
+                                    onValueChange = { numero3 = it },
+                                    label = { Text("Tercer Mes", color = Color4) },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.fillMaxWidth()
                                 )
-
+                                Spacer(modifier = Modifier.height(16.dp))
+                                OutlinedTextField(
+                                    value = numero4,
+                                    onValueChange = { numero4 = it },
+                                    label = { Text("Cuarto Mes", color = Color4) },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                                OutlinedTextField(
+                                    value = numero5,
+                                    onValueChange = { numero5 = it },
+                                    label = { Text("Quinto Mes", color = Color4) },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                                OutlinedTextField(
+                                    value = numero6,
+                                    onValueChange = { numero6 = it },
+                                    label = { Text("Sexto Mes", color = Color4) },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    modifier = Modifier.fillMaxWidth()
+                                )
                                 Spacer(modifier = Modifier.height(24.dp))
-
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
                                     OutlinedButton(
                                         onClick = {
-                                            val database = MapaDatabaseProvider.getDatabase(this@MapasUpdateActivity)
-                                            val mapaDao = database.mapaDao()
+                                            val database = CanvasDatabaseProvider.getDatabase(this@CanvasUpdateActivity)
+                                            val canvasDao = database.canvasDao()
                                             lifecycleScope.launch {
                                                 try {
-                                                    val mapa = Mapa(
+                                                    val canvas = Canvas(
                                                         id = id,
                                                         nombre = nombre,
-                                                        latitud = latitud.toDoubleOrNull() ?: 0.0,
-                                                        longitud = longitud.toDoubleOrNull() ?: 0.0,
-                                                        descripcion = descripcion
+                                                        numero1 = numero1.toIntOrNull() ?: 0,
+                                                        numero2 = numero2.toIntOrNull() ?: 0,
+                                                        numero3 = numero3.toIntOrNull() ?: 0,
+                                                        numero4 = numero4.toIntOrNull() ?: 0,
+                                                        numero5 = numero5.toIntOrNull() ?: 0,
+                                                        numero6 = numero6.toIntOrNull() ?: 0,
+                                                        createdAt = Date()
                                                     )
-                                                    mapaDao.updateMapa(mapa)
-                                                    Toast.makeText(this@MapasUpdateActivity, "Mapa actualizado", Toast.LENGTH_SHORT).show()
+                                                    canvasDao.updateCanvas(canvas)
+                                                    Toast.makeText(this@CanvasUpdateActivity, "Canvas actualizado", Toast.LENGTH_SHORT).show()
                                                     finish()
                                                 } catch (e: Exception) {
-                                                    Toast.makeText(this@MapasUpdateActivity, "Error al actualizar el mapa", Toast.LENGTH_SHORT).show()
+                                                    Toast.makeText(this@CanvasUpdateActivity, "Error al actualizar el canvas", Toast.LENGTH_SHORT).show()
                                                 }
                                             }
                                         },
@@ -195,18 +207,28 @@ class MapasUpdateActivity : ComponentActivity() {
                                             modifier = Modifier.padding(vertical = 4.dp)
                                         )
                                     }
-
                                     OutlinedButton(
                                         onClick = {
-                                            val database = MapaDatabaseProvider.getDatabase(this@MapasUpdateActivity)
-                                            val mapaDao = database.mapaDao()
+                                            val database = CanvasDatabaseProvider.getDatabase(this@CanvasUpdateActivity)
+                                            val canvasDao = database.canvasDao()
                                             lifecycleScope.launch {
                                                 try {
-                                                    mapaDao.deleteMapa(Mapa(id, nombre, latitud.toDouble(), longitud.toDouble(), descripcion))
-                                                    Toast.makeText(this@MapasUpdateActivity, "Mapa eliminado", Toast.LENGTH_SHORT).show()
+                                                    val canvas = Canvas(
+                                                        id = id,
+                                                        nombre = nombre,
+                                                        numero1 = numero1.toIntOrNull() ?: 0,
+                                                        numero2 = numero2.toIntOrNull() ?: 0,
+                                                        numero3 = numero3.toIntOrNull() ?: 0,
+                                                        numero4 = numero4.toIntOrNull() ?: 0,
+                                                        numero5 = numero5.toIntOrNull() ?: 0,
+                                                        numero6 = numero6.toIntOrNull() ?: 0,
+                                                        createdAt = Date()
+                                                    )
+                                                    canvasDao.deleteCanvas(canvas)
+                                                    Toast.makeText(this@CanvasUpdateActivity, "Canvas eliminado", Toast.LENGTH_SHORT).show()
                                                     finish()
                                                 } catch (e: Exception) {
-                                                    Toast.makeText(this@MapasUpdateActivity, "Error al eliminar el mapa", Toast.LENGTH_SHORT).show()
+                                                    Toast.makeText(this@CanvasUpdateActivity, "Error al eliminar el canvas", Toast.LENGTH_SHORT).show()
                                                 }
                                             }
                                         },
@@ -219,8 +241,7 @@ class MapasUpdateActivity : ComponentActivity() {
                                         Text(
                                             text = "Eliminar",
                                             color = Color4,
-                                            modifier = Modifier.padding(vertical = 4.dp)
-                                        )
+                                            modifier = Modifier.padding(vertical = 4.dp) )
                                     }
                                 }
                             }

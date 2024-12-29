@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232
+package com.davidchura.sistema1232.locations
 
 import android.os.Bundle
 import android.util.Log

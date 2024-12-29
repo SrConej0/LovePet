@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tipos de Animales</title>
+    <style>
+        .animal {
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 10px;
+            display: inline-block;
+            vertical-align: top;
+            text-align: center;
+        }
+        .animal img {
+            max-width: 150px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Tipos de Animales</h1>
+<div id="tipos_animales"></div>
+
+<script>
+    fetch('mostrar.php')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('tipos_animales');
+            data.forEach(animal => {
+                const div = document.createElement('div');
+                div.className = 'animal';
+                div.innerHTML = `
+                    <h2>${animal.tipo_id}</h2>
+                    <p>${animal.tipo}</p>
+                    <p>${animal.descripcion}</p>
+                    <img src="../imagenes/${animal.foto}" alt="${animal.tipo}">
+                `;
+                container.appendChild(div);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232
+package com.davidchura.sistema1232.locations
 
 import android.content.Intent
 import android.os.Bundle
@@ -35,6 +35,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.davidchura.sistema1232.R
+import com.davidchura.sistema1232.UserInsertActivity
+import com.davidchura.sistema1232.UserUpdateActivity
 import com.davidchura.sistema1232.dao.DatabaseProvider
 import com.davidchura.sistema1232.dao.User
 import com.davidchura.sistema1232.dao.UserDao
