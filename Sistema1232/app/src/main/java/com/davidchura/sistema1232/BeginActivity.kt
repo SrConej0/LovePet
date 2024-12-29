@@ -63,7 +63,7 @@ class BeginActivity : ComponentActivity() {
                         .fillMaxSize()
                         .background(Color2)
                 ) {
-                    var timer by remember { mutableIntStateOf(60) }
+                    var timer by remember { mutableIntStateOf(30) }
                     var code1 by remember { mutableStateOf("") }
                     var code2 by remember { mutableStateOf("") }
                     var code3 by remember { mutableStateOf("") }

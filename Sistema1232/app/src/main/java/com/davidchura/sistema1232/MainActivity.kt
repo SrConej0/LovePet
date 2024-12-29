@@ -142,7 +142,7 @@ class MainActivity() : ComponentActivity(), Parcelable {
                         // Contraseno es 999999999 y 1111
                         ElevatedButton(
                             onClick = {
-                                if (phoneNumber == "999999999") {
+                                if (phoneNumber == "987654321") {
                                     // Directly start the activity without API verification
                                     val intent = Intent(this@MainActivity, BeginActivity::class.java).apply {
                                         putExtra("telefono", phoneNumber)
