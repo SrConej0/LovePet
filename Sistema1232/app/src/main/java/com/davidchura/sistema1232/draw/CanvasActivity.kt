@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.davidchura.sistema1232.locations.ConfirmDeleteDialog
+import com.davidchura.sistema1232.ConfirmDeleteDialog
 import com.davidchura.sistema1232.dao.Canvas
 import com.davidchura.sistema1232.dao.CanvasDao
 import com.davidchura.sistema1232.dao.CanvasDatabaseProvider

@@ -39,32 +39,32 @@
             android:label="@string/title_activity_canvas"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".locations.ParqueFotoActivity"
+            android:name=".ParqueFotoActivity"
             android:exported="false"
             android:label="@string/title_activity_parque_foto"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".locations.ParqueDetalleActivity"
+            android:name=".ParqueDetalleActivity"
             android:exported="false"
             android:label="@string/title_activity_parque_detalle"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".locations.ParquesActivity"
+            android:name=".ParquesActivity"
             android:exported="false"
             android:label="@string/title_activity_parques"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".locations.MapasViewActivity"
+            android:name=".MapasViewActivity"
             android:exported="false"
             android:label="@string/title_activity_mapas_view"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".locations.MapasInsertActivity"
+            android:name=".MapasInsertActivity"
             android:exported="false"
             android:label="@string/title_activity_mapas_insert"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".locations.MapasUpdateActivity"
+            android:name=".MapasUpdateActivity"
             android:exported="false"
             android:label="@string/title_activity_mapas_update"
             android:theme="@style/Theme.Sistema1232" />
@@ -81,7 +81,7 @@
     </activity>
 
         <activity
-            android:name=".locations.PaisesInsertActivity"
+            android:name=".PaisesInsertActivity"
             android:exported="false"
             android:label="@string/title_activity_paises_insert"
             android:theme="@style/Theme.Sistema1232" />
@@ -91,12 +91,12 @@
             android:label="@string/title_activity_detalle"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".locations.PaisesActivity"
+            android:name=".PaisesActivity"
             android:exported="false"
             android:label="@string/title_activity_paises"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".locations.MapasActivity"
+            android:name=".MapasActivity"
             android:exported="false"
             android:label="@string/title_activity_products"
             android:theme="@style/Theme.Sistema1232" />
@@ -126,7 +126,7 @@
             android:label="@string/title_activity_begin"
             android:theme="@style/Theme.Sistema1232" />
         <activity
-            android:name=".locations.MainActivity2"
+            android:name=".MainActivity2"
             android:exported="false"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.Sistema1232" />

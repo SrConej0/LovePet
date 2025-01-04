@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232.locations
+package com.davidchura.sistema1232
 
 import android.os.Bundle
 import android.widget.Toast
@@ -19,7 +19,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import com.davidchura.sistema1232.R
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng

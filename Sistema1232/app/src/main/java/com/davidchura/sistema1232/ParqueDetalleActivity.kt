@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232.locations
+package com.davidchura.sistema1232
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.davidchura.sistema1232.R
 import com.davidchura.sistema1232.ui.theme.Color1
 import com.davidchura.sistema1232.ui.theme.Color4
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -27,7 +26,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import org.json.JSONArray
+import org.json.JSONObject
 
 class ParqueDetalleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +41,8 @@ class ParqueDetalleActivity : ComponentActivity() {
         val queue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(Request.Method.GET, url,
             { response ->
-                val jsonArray = JSONArray(response)
-                val park = jsonArray.getJSONObject(0)
+                // Cambia JSONArray a JSONObject
+                val park = JSONObject(response)
                 val details = hashMapOf(
                     "nombre" to park.getString("nombre"),
                     "latitud" to park.getString("latitud"),
@@ -56,6 +55,7 @@ class ParqueDetalleActivity : ComponentActivity() {
         )
         queue.add(stringRequest)
     }
+
 
     @OptIn(ExperimentalMaterial3Api::class)
     private fun drawParkDetails(details: HashMap<String, String>) {

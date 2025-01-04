@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232.locations
+package com.davidchura.sistema1232
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

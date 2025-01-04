@@ -30,7 +30,7 @@ class SplashActivity : ComponentActivity() {
         setContent {
             Sistema1232Theme {
                 LaunchedEffect(key1 = true) {
-                    delay(4000)
+                    delay(3000)
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                 }
                 SplashContent()
@@ -44,9 +44,13 @@ fun SplashContent() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color1),
+            .background(Color1), // Dibuja el fondo primero
         contentAlignment = Alignment.Center
     ) {
+        LaunchedEffect(Unit) {
+            delay(100) // Ajusta según sea necesario
+        }
+
         Image(
             painter = painterResource(id = R.drawable.logo),
             contentDescription = null,

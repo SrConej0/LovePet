@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232.locations
+package com.davidchura.sistema1232
 
 import android.os.Bundle
 import android.widget.Toast
@@ -33,7 +33,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import com.davidchura.sistema1232.R
 import com.davidchura.sistema1232.dao.Mapa
 import com.davidchura.sistema1232.dao.MapaDatabaseProvider
 import com.davidchura.sistema1232.ui.theme.Color1

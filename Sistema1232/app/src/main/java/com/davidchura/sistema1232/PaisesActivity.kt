@@ -1,4 +1,4 @@
-package com.davidchura.sistema1232.locations
+package com.davidchura.sistema1232
 
 import android.content.Intent
 import android.os.Bundle
@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.davidchura.sistema1232.R
 import com.davidchura.sistema1232.ui.theme.Color1
 import com.davidchura.sistema1232.ui.theme.Color4
 import com.davidchura.sistema1232.ui.theme.Sistema1232Theme
